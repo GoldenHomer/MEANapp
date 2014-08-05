@@ -1,0 +1,15 @@
+{
+  "name": "MEANapp",
+  "version": "0.0.0",
+  "description": "App created with the MEAN stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "None",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.7.4",
+    "jade": "^1.5.0"
+  }
+}
