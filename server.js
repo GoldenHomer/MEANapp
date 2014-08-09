@@ -7,7 +7,7 @@ var express = require('express'),
 	mongoose = require('mongoose');
 	// Mongoose allows Mongo to easily be used in node apps.
 
-var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development'; // look for specific node environment. if not, fall back to development env
 
 var app = express();
 
@@ -56,7 +56,7 @@ app.get('*', function (req, res) {
 })
 
 // Tell app to listen for ports
-var port = 4000;
+var port = process.env.PORT || 4000; //find specified port number; if not, fall back to 4000
 app.listen(port);
 console.log('Aww yeah, listening on port ' + port + '!');
 
