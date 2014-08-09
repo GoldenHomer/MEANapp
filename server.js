@@ -28,7 +28,7 @@ app.use(stylus.middleware(
 
 app.use(express.static(__dirname + '/public')); // static route handling
 
-mongoose.connect('mongodb://localhost/multivision');
+env == 'development' ? mongoose.connect('mongodb://localhost/multivision') : mongoose.connect('mongodb://hosay:Snoogan9s@ds029787.mongolab.com:29787/xvision');
 
 var db = mongoose.connection;
 
