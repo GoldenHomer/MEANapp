@@ -13,18 +13,18 @@ function compile(str, path){
 	return stylus(str).set('filename', path);
 }
 
-app.set('views', dirname + '/server/views');
+app.set('views', __dirname + '/server/views');
 app.set('view engine','jade'); // Jade is evil
 app.use(logger('dev'));
 app.use(stylus.middleware(
 
 	{
-		src: dirname + '/public',
+		src: __dirname + '/public',
 		compile: compile
 	}
 ));
 
-app.use(express.static(dirname + '/public')); // static route handling
+app.use(express.static(__dirname + '/public')); // static route handling
 
 app.get('*', function (req, res) {
 	// * will match all routes (any req that gets to this point will be handled; JS CSS and image requests)
@@ -32,7 +32,7 @@ app.get('*', function (req, res) {
 })
 
 // Tell app to listen for ports
-var port = 3030;
+var port = 4000;
 app.listen(port);
 console.log('Aww yeah, listening on port ' + port + '!');
 
