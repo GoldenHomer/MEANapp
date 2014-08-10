@@ -1,7 +1,10 @@
 var express = require('express'),
 	stylus = require('stylus'), // CSS preprocessor - it's great but needs getting use to like jade.
 	logger = require('morgan'), // HTTP request logger middleware
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	cookieParser = require('cookie-parser'),
+	session = require('express-session'),
+	passport = require('passport');
 
 
 module.exports = function(app, config){
@@ -13,8 +16,12 @@ function compile(str, path){
 app.set('views', config.rootPath + '/server/views');
 app.set('view engine','jade'); // Jade is evil
 app.use(logger('dev'));
+app.use(cookieParser());
+app.use(bodyParser());
+app.use(session({secret: 'verysecurepassword'}));
+app.use(passport.initialize());
+app.use(passport.session()); //Add passport session
 app.use(stylus.middleware(
-
 	{
 		src: config.rootPath + '/public',
 		compile: compile
