@@ -17,8 +17,14 @@ var User = mongoose.model('User');
 passport.use(new LocalStrategy(
 	function (username, password, done){
 		User.findOne({username: username}).exec(function(err, user){
-			user ? return done(null, user) : return done(null, false);
-		})
+				if(user){
+					return done(null, user)
+				}
+				else{
+					return done(null, false);
+				}
+			}
+		);
 	}
 ));
 
@@ -30,9 +36,14 @@ passport.serializeUser(function(user, done){
 
 passport.deserializeUser(function(id, done){
 	User.findOne({_id: id}).exec(function(err, user){
-		user ? return done(null, user) : return done(null, false);
+		if(user){
+			return done(null, user)
+		}
+		else{
+			return done(null, false);
+		}
 	})
-})
+});
 
 // http://passportjs.org/guide/configure/
 // serial and deserial used to support login sessions.
