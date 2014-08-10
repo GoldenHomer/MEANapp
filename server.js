@@ -37,23 +37,14 @@ db.once('open', function callback(){ // Log this message once
 	console.log('Success! App db opened');
 });
 
-var messageSchema = mongoose.Schema({message: String}); // Set up message scheme in Mongoose
-var Message = mongoose.model('Message', messageSchema); // Create a model based on the schema (similar to how Angular does it)
-var mongoMessage;
-
-Message.findOne().exec(function(err, messageDoc){
-	mongoMessage = messageDoc.message;
-});
-
 app.get('/partials/:partialPath', function(req, res) {
 	res.render('partials/' + req.params.partialPath);
 });
+
 app.get('*', function (req, res) {
 	// * will match all routes (any req that gets to this point will be handled; JS CSS and image requests)
-	res.render('index', {
-		mongoMessage: mongoMessage // Give mongodb mongoMessage to variable to be used in jade file to display to view. 
-	});
-})
+	res.render('index');
+});
 
 // Tell app to listen for ports
 var port = process.env.PORT || 4000; //find specified port number; if not, fall back to 4000
