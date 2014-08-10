@@ -37,8 +37,8 @@ db.once('open', function callback(){ // Log this message once
 	console.log('Success! App db opened');
 });
 
-app.get('/partials/:partialPath', function(req, res) {
-	res.render('partials/' + req.params.partialPath);
+app.get('/partials/*', function(req, res) {
+	res.render('../../public/app/' + req.params[0]); // params[0] is what will match up with in the asterisk
 });
 
 app.get('*', function (req, res) {
