@@ -2,6 +2,15 @@ extends ../includes/layout
 // extends will place the code from the jade file referenced and place it in here
 
 block main-content
+	.navbar.navbar-inverse.navbar-fixed-top
+		.container
+			.navbar-header
+				a.navbar-brand(href="/") MultiVision
+					h6 -Tech Training
+			.navbar-collapse.collapse
+				ul.nav.navbar-nav
+					li
+						a(href="/") Home
 	section.content
 		div(ng-view)
 
