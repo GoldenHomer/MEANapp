@@ -29,6 +29,10 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
 			templateUrl: '/partials/account/profile',
 			controller: 'ProfileController', resolve: routeRoleChecks.user
 		})
+		.when('/courses',{
+			templateUrl: '/partials/courses/courselist',
+			controller: 'CourseListController'
+		})
 });
 // Run the module below after the modules above are done.
 angular.module('app').run(function($rootScope, $location){// $rootScope to listen to route change error event
