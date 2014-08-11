@@ -5,4 +5,4 @@ angular.module('app').factory('User', function ($resource) {
 		return this.roles && this.roles.indexOf('admin') > -1;
 	}
 	return UserResource;
-})
+});
