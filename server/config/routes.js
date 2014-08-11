@@ -6,8 +6,15 @@ module.exports = function(app){
 	});
 
 	app.post('/login', auth.authenticate);
+	app.post('/logout', function(req, res){
+		req.logout();
+		res.end();
+	});
+	
 	app.get('*', function (req, res) {
 		// * will match all routes (any req that gets to this point will be handled; JS CSS and image requests)
-		res.render('index');
+		res.render('index', {
+			bootstrappedUser: req.user
+		});
 	});
 }

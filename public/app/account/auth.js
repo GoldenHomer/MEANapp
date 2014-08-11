@@ -12,6 +12,14 @@ angular.module('app').factory('Auth', function($http, Identity, $q){// $q is "a 
 				}
 			}); 
 			return deferPromise.promise;
+		},
+		logoutUser: function(){
+			var deferPromise = $q.defer();
+			$http.post('/logout',{logout:true}).then(function(){
+				Identity.currentUser = undefined;
+				deferPromise.resolve();
+			});
+			return deferPromise.promise;
 		}
 	}
 })
