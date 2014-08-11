@@ -14,7 +14,8 @@ module.exports = function(config){
 		lastName: String,
 		username: String,
 		salt: String, // randomly generated number
-		hashed_pw: String
+		hashed_pw: String,
+		roles: [String]
 	});
 	userSchema.methods = {
 		authenticate: function(passwordToMatch){
@@ -28,15 +29,15 @@ module.exports = function(config){
 			var salt, hash;
 			salt = createSalt();
 			hash = hashPw(salt, 'jose');
-			User.create({firstName: 'Josay', lastName:'Con', username:'jose', salt: salt, hashed_pw: hash});
+			User.create({firstName: 'Josay', lastName:'Con', username:'jose',salt: salt, hashed_pw: hash, roles: ['admin']}); // Of course I must be admin
 
 			salt = createSalt();
 			hash = hashPw(salt, 'seymour');
-			User.create({firstName: 'Seymour', lastName:'Buts', username:'skinner',salt: salt, hashed_pw: hash});
+			User.create({firstName: 'Seymour', lastName:'Buts', username:'skinner',salt: salt, hashed_pw: hash, roles: []}); // Empty array for non-admin
 
 			salt = createSalt();
 			hash = hashPw(salt, 'amanda');
-			User.create({firstName: 'Amanda', lastName:'Hugginkiss', username:'amanda',salt: salt, hashed_pw: hash});
+			User.create({firstName: 'Amanda', lastName:'Hugginkiss', username:'amanda',salt: salt, hashed_pw: hash}); // No role property declared but mongo will create one when I run nodemon server.
 		}
 	})
 }
