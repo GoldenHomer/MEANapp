@@ -22,6 +22,14 @@ angular.module('app').factory('Auth', function($http, Identity, $q, User){// $q 
 				deferPromise.resolve();
 			});
 			return deferPromise.promise;
+		},
+		authorizeCurrentUserForRoute: function(role){
+			if(Identity.isAuthorized(role)){
+						return true;
+			}
+			else{
+				return $q.reject('Not authorized to view');
+			}
 		}
 	}
-})
+});
