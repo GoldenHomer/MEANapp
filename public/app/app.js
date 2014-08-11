@@ -17,12 +17,15 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
 			templateUrl: '/partials/admin/userlist',
 			controller: 'UserListController',
 			resolve: routeRoleChecks.admin // route resolvers are objects and each of its property must be a function.
-			}
+			})
+		.when('/signup',{
+			templateUrl: '/partials/account/signup',
+			controller: 'SignUpController'
 		})
 });
 // Run the module below after the modules above are done.
 angular.module('app').run(function($rootScope, $location){// $rootScope to listen to route change error event
-	$rootScope.$on('$routeChangeError', function(Event, current, previous, rejection){
+	$rootScope.$on('$routeChangeError', function(evt, current, previous, rejection){
 		if(rejection === 'Not authorized to view'){
 			$location.path('/');
 		}

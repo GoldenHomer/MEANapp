@@ -15,6 +15,20 @@ angular.module('app').factory('Auth', function($http, Identity, $q, User){// $q 
 			}); 
 			return deferPromise.promise;
 		},
+		createUser: function(newUserData){
+			var newUser = new User(newUserData);
+			var deferPromise = $q.defer();
+
+			newUser.$save().then(function(){ 
+				// THEN if save is successful...
+				Identity.currentUser = newUser;
+				deferPromise.resolve();
+			}, function(response){
+				deferPromise.reject(response.data.reason); // else give reason why new user could not be created.
+			});
+			return deferPromise.promise;
+		},
+
 		logoutUser: function(){
 			var deferPromise = $q.defer();
 			$http.post('/logout',{logout:true}).then(function(){
