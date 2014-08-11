@@ -4,6 +4,9 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
 	var routeRoleChecks = {
 		admin: {auth: function(Auth){
 			return Auth.authorizeCurrentUserForRoute('admin');
+		}},
+		user: {auth: function(Auth){
+			return Auth.authorizeAuthenticatedUserForRoute(); // allow logged user to see own profile
 		}}
 	}
 
@@ -21,6 +24,10 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
 		.when('/signup',{
 			templateUrl: '/partials/account/signup',
 			controller: 'SignUpController'
+		})
+		.when('/profile',{
+			templateUrl: '/partials/account/profile',
+			controller: 'ProfileController', resolve: routeRoleChecks.user
 		})
 });
 // Run the module below after the modules above are done.

@@ -19,6 +19,9 @@ var userSchema = mongoose.Schema({
 userSchema.methods = {
 	authenticate: function(passwordToMatch){
 		return encrypt.hashPw(this.salt, passwordToMatch) === this.hashed_pw;
+	},
+	hasRole: function(role){
+		return this.roles.indexOf(role) > -1;
 	}
 };
 

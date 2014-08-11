@@ -29,6 +29,20 @@ angular.module('app').factory('Auth', function($http, Identity, $q, User){// $q 
 			return deferPromise.promise;
 		},
 
+		updateCurrentUser: function(newUserData){
+			var deferPromise = $q.defer();
+
+			var clone = angular.copy(Identity.currentUser);
+			angular.extend(clone, newUserData);
+			clone.$update().then(function(){
+				Identity.currentUser = clone;
+				deferPromise.resolve();
+			}, function(response){
+				deferPromise.reject(response.data.reason);
+			});
+			return deferPromise.promise;
+		},
+
 		logoutUser: function(){
 			var deferPromise = $q.defer();
 			$http.post('/logout',{logout:true}).then(function(){
@@ -43,6 +57,14 @@ angular.module('app').factory('Auth', function($http, Identity, $q, User){// $q 
 			}
 			else{
 				return $q.reject('Not authorized to view');
+			}
+		},
+		authorizeAuthenticatedUserForRoute: function(){
+			if(Identity.isAuthenticated()){
+				return true;
+			}
+			else{
+				return $q.reject('Why are you even trying that? Not authorized.')
 			}
 		}
 	}

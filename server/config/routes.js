@@ -7,6 +7,7 @@ module.exports = function(app){
 
 	app.get('/api/users', auth.requiresApiLogin, users.getUsers);
 	app.post('/api/users', users.createUser);
+	app.put('/api/users', users.updateUser);
 
 	app.get('/partials/*', function(req, res) {
 		res.render('../../public/app/' + req.params[0]); // Render whatever is requested with asterick
